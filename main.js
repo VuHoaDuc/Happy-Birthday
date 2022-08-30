@@ -1,72 +1,135 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Love</title>
-    <link rel="stylesheet" href="main2.css">
-    <link rel="shortcut icon" href="./icon.png" type="image/x-icon">
-</head>
-<body>
-    <canvas></canvas>
-    
-    <h1 aria-label="Sarah Fossheim">
+var theCount;
+var alarm = document.getElementById("alarm");
+var panel = document.getElementById("panel");
+var turnOff = document.getElementById("turn-off");
+var turnOffHor = document.getElementById("closing");
+var detonate = document.getElementById("detonate");
+var again = document.getElementById("again");
+var panel2 = document.getElementById("panel2");
+alarm.volume = 0.5; //volume level
 
-      <span aria-hidden="true">
-        <span style="--index: 1s">I</span>
-      </span>  
-        <span aria-hidden="true" class="spacing"  style="--index: 1.1"></span>
-      <span aria-hidden="true">
-        <span style="--index: 1.2s">L</span>
-        <span style="--index: 1.3s">O</span>
-        <span style="--index: 1.4s">V</span>
-        <span style="--index: 1.5s">E</span>
-      </span>  
-        <span aria-hidden="true" class="spacing"  style="--index: 1.6"></span>
-      <span aria-hidden="true">
-        <span style="--index: 1.7s">Y</span>
-        <span style="--index: 1.8s">O</span>
-        <span style="--index: 1.9s">U</span>
-      </span>  
-        <span aria-hidden="true" class="spacing"  style="--index: 2"> </span>
-      <span aria-hidden="true">
-        <span style="--index: 2.1s">T</span>
-        <span style="--index: 2.2s">O</span>
-        <span style="--index: 2.3s">O</span>
-      </span>
-      <span aria-hidden="true" class="spacing"  style="--index: 2"> </span>
-      <span aria-hidden="true">
-        <span style="--index: 2.4s">A</span>
-        <span style="--index: 2.5s">N</span>
-        <span style="--index: 2.6s">D</span>
-      </span>
-      <span aria-hidden="true" class="spacing"  style="--index: 2"> </span>
-      <span aria-hidden="true">
-        <span style="--index: 2.7s">H</span>
-        <span style="--index: 2.8s">A</span>
-        <span style="--index: 2.9s">P</span>
-        <span style="--index: 3.0s">P</span>
-        <span style="--index: 3.1s">Y</span>
-      </span>
-      <span aria-hidden="true" class="spacing"  style="--index: 2"> </span>
-      <span aria-hidden="true">
-        <span style="--index: 3.2s">B</span>
-        <span style="--index: 3.3s">I</span>
-        <span style="--index: 3.4s">R</span>
-        <span style="--index: 3.5s">T</span>
-        <span style="--index: 3.6s">H</span>
-        <span style="--index: 3.7s">D</span>
-        <span style="--index: 3.8s">A</span>
-        <span style="--index: 3.9s">Y</span>
-      </span>
+var time = document.getElementById("time");
+function showCountDown() {
+	time.innerText = time.innerText - 1;
+	if (time.innerText == 0) {
+		clearInterval(theCount);
+		time.classList.add("crono");
+		abort.classList.add("hide");
+        no.classList.add("hide");
+        again.classList.add("hide");
+        
+		
+        detonate.classList.add("show");
+		setTimeout(function () {
+			turnOff.classList.add("close");
+			turnOffHor.classList.add("close");
+			reload.classList.add("show");
+			alarm.pause();
+		}, 1500);
+	}
+   
+}
 
-      <audio controls autoplay hidden>
-        <source src="main.mp3" type="audio/mpeg">
-        Your browser does not support the audio tag.
-      </audio>
+var cover = document.getElementById("cover");
+cover.addEventListener("click", function () {
+	if (this.className == "box") this.classList.add("opened");
+	else this.classList.remove("opened");
+});
+
+var btn = document.getElementById("activate");
+activate.addEventListener("click", function () {
+	this.classList.add("pushed");
+	alarm.load();
+	alarm.currentTime = 10.1;
+	alarm.play();
+	setTimeout(function () {
+		panel.classList.add("show");
+		theCount = setInterval(showCountDown, 1000);
+		alarm.load();
+		alarm.play();
+	}, 500);
+});
+
+var abort = document.getElementById("abort");
+abort.addEventListener("click", function () {
+	btn.classList.remove("pushed");
+	panel.classList.remove("show");
+	clearInterval(theCount);
+	time.innerText = 9;
+	alarm.pause();
+	alarm.currentTime = 10;
+	alarm.play();
+   
+});
+
+var no = document.getElementById("no");
+no.addEventListener("click", function () {
+	btn.classList.remove("pushed");
+	panel.classList.remove("show");
+	clearInterval(theCount);
+	time.innerText = 9;
+	alarm.pause();
+	alarm.currentTime = 10;
+	alarm.play();
+    panel2.classList.add("show");
+});
+
+var again = document.getElementById("again");
+again.addEventListener("click", function () {
+	btn.classList.remove("pushed");
+	panel2.classList.remove("show");
+    no.classList.remove("pushed");
+	clearInterval(theCount);
+	time.innerText = 9;
+	alarm.pause();
+	alarm.currentTime = 10;
+	alarm.play();
     
     
-    <script src="main2.js"></script>
-</body>
-</html>
+    btn.classList.add("pushed");
+	alarm.load();
+	alarm.currentTime = 10.1;
+	alarm.play();
+	setTimeout(function () {
+		panel.classList.add("show");
+		theCount = setInterval(showCountDown, 1000);
+		alarm.load();
+		alarm.play();
+	}, 500);
+});
+
+
+
+
+var reload = document.getElementById("restart");
+reload.addEventListener("click", function () {
+    panel.classList.remove("show");
+	turnOff.classList.remove("close");
+	turnOffHor.classList.remove("close");
+	abort.classList.remove("hide");
+    no.classList.remove("hide");
+    
+    
+	
+    detonate.classList.remove("show");
+	cover.classList.remove("opened");
+	btn.classList.remove("pushed");
+	this.classList.remove("show");
+	time.classList.remove("crono");
+	time.innerText = 9;
+});
+
+setTimeout(function () {
+	cover.classList.remove("opened");
+}, 100);
+
+var mute = document.getElementById("mute");
+mute.addEventListener("click", function () {
+	if (this.className == "muted") {
+		alarm.muted = false;
+		this.classList.remove("muted");
+	} else {
+		alarm.muted = true;
+		this.classList.add("muted");
+	}
+});s
